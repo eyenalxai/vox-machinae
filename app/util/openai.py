@@ -20,7 +20,7 @@ def openai_wrapper() -> Callable[[str], str]:
     }
 
     configuration = {
-        "schema": "text-davinci-003",
+        "model": "text-davinci-003",
         "temperature": 0,
         "max_tokens": 512,
     }
@@ -34,10 +34,6 @@ def openai_wrapper() -> Callable[[str], str]:
                 "prompt": message,
             },
         )
-
-        logging.warning("Headers: ", response.request.headers)  # noqa: WPS421
-        logging.warning("Content: ", response.request.content)  # noqa: WPS421
-        logging.warning("URL: ", response.request.url)  # noqa: WPS421
 
         try:
             response.raise_for_status()
