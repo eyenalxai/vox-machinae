@@ -35,6 +35,10 @@ def openai_wrapper() -> Callable[[str], str]:
             },
         )
 
+        print("Headers: ", response.request.headers)  # noqa: WPS421
+        print("Content: ", response.request.content)  # noqa: WPS421
+        print("URL: ", response.request.url)  # noqa: WPS421
+
         try:
             response.raise_for_status()
         except HTTPStatusError:
