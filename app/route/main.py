@@ -1,9 +1,15 @@
 from collections.abc import Callable
 
 from aiogram import Router
+from aiogram.filters import Command
 from aiogram.types import Message
 
 main_router = Router(name="main router")
+
+
+@main_router.message(Command("help"))
+async def command_help_handler(message: Message) -> None:
+    await message.reply(text="Hello!")
 
 
 @main_router.message()
