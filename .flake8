@@ -10,11 +10,12 @@
 # S104: Possible binding to all interfaces
 # WPS110: Found wrong variable name: handler
 # WPS115 Found upper-case constant in a class
+# WPS213: Found too many expressions: 10 > 9
 # WPS306: Found class without a base class
 # WPS323: Found `%` string formatting
 # WPS404: Found complex default value
 # WPS430: Found nested function: create_prompt
-ignore = B008, D100, D101, D102, D103, D104, D106, I001, Q000, S104, WPS110, WPS115, WPS306, WPS323, WPS404, WPS430
+ignore = B008, D100, D101, D102, D103, D104, D106, I001, Q000, S104, WPS110, WPS115, WPS213, WPS306, WPS323, WPS404, WPS430
 max-line-length = 88
 
 # Exclude some directories from flake8

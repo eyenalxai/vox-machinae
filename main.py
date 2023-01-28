@@ -1,3 +1,5 @@
+import logging
+
 from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.memory import SimpleEventIsolation
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
@@ -11,10 +13,24 @@ from app.util.healthcheck import health
 from app.util.openai import openai_wrapper
 
 
+async def on_startup(bot: Bot) -> None:
+    if settings.poll_type == PollType.WEBHOOK:
+        webhook_url = settings.webhook_url
+        await bot.set_webhook(url=webhook_url)
+        logging.info("Webhook set to: %s", webhook_url)
+
+
+async def on_shutdown() -> None:
+    logging.info("Shutting down...")
+
+
 def main() -> None:
     bot = Bot(settings.telegram_token, parse_mode="HTML")
 
     dispatcher = Dispatcher(events_isolation=SimpleEventIsolation())
+
+    dispatcher.startup.register(on_startup)
+    dispatcher.shutdown.register(on_shutdown)
 
     dispatcher["create_prompt"] = openai_wrapper()
 
