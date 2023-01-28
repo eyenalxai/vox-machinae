@@ -22,7 +22,7 @@ def openai_wrapper() -> Callable[[str], str]:
     configuration = {
         "model": "text-davinci-003",
         "temperature": 0,
-        "max_tokens": 512,
+        "max_tokens": 256,
     }
 
     def create_prompt(message: str) -> str:

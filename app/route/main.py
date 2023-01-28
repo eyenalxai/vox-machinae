@@ -7,9 +7,9 @@ from aiogram.types import Message
 main_router = Router(name="main router")
 
 
-@main_router.message(Command("help"))
+@main_router.message(Command("help", "start"))
 async def command_help_handler(message: Message) -> None:
-    await message.reply(text="Hello!")
+    await message.reply(text="Hello! Ask me anything!")
 
 
 @main_router.message()
