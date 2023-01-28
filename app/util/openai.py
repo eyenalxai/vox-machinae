@@ -38,7 +38,8 @@ def openai_wrapper() -> Callable[[str], str]:
         try:
             response.raise_for_status()
         except HTTPStatusError:
-            return "An error occurred. Please try again."
+            logging.error("OpenAI API error: %s", response.text)
+            return "An error occurred."
         except Exception as exception:
             logging.error(
                 "Error: %s", exception  # noqa:  WPS323 Found `%` string formatting
