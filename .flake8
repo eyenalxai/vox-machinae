@@ -1,21 +1,14 @@
 [flake8]
-# B008: Do not perform function calls in argument defaults
-# D100: Missing docstring in public module
-# D101: Missing docstring in public class
-# D102: Missing docstring in public method
-# D103: Missing docstring in public function
-# D104: Missing docstring in public package
-# D106: Missing docstring in public nested class
-# Q000: Double quotes found but single quotes preferred
-# S104: Possible binding to all interfaces
-# WPS110: Found wrong variable name: handler
-# WPS115 Found upper-case constant in a class
-# WPS213: Found too many expressions: 10 > 9
-# WPS306: Found class without a base class
-# WPS323: Found `%` string formatting
-# WPS404: Found complex default value
-# WPS430: Found nested function: create_prompt
-ignore = B008, D100, D101, D102, D103, D104, D106, I001, Q000, S104, WPS110, WPS115, WPS213, WPS306, WPS323, WPS404, WPS430
+ignore =    D100 Missing docstring in public module
+            D101 Missing docstring in public class
+            D102 Missing docstring in public method
+            D103 Missing docstring in public function
+            D104 Missing docstring in public package
+            N805 first argument of a method should be named 'self'
+            Q000 Double quotes found but single quotes preferred
+            S104 Possible binding to all interfaces
+            WPS111 Found too short name: v < 2
+            WPS323 Found `%` string formatting
 max-line-length = 88
 
 # Exclude some directories from flake8
