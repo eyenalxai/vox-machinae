@@ -5,9 +5,12 @@ from pydantic import BaseSettings, Field, validator
 
 class Settings(BaseSettings):
     telegram_token: str = Field(..., env="TELEGRAM_TOKEN")
+    openai_token: str = Field(..., env="OPENAI_TOKEN")
+
+    # Example: [1234567890, 1234567890, ...] # noqa: E800 Found commented out code
+    admin_user_ids: list[int] = Field(..., env="ADMIN_USER_IDS")
 
     poll_type: Literal["WEBHOOK", "POLLING"] = Field(..., env="POLL_TYPE")
-
     port: int = Field(..., env="PORT")
     domain: str = Field(..., env="DOMAIN")
     host: str = Field(env="HOST", default="0.0.0.0")
