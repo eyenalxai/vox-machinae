@@ -21,7 +21,7 @@ async def on_startup(bot: Bot) -> None:
         logger.info("Webhook set to: %s", webhook_url)
 
 
-async def on_shutdown(bot: Bot) -> None:
+async def on_shutdown() -> None:
     logger.info("Shutting down...")
 
 
