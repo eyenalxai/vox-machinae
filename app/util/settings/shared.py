@@ -15,6 +15,8 @@ class SharedSettings(BaseSettings):
     database_url: str = Field(..., env="DATABASE_URL")
     database_pool_size = 20
 
+    redis_url: str = Field(..., env="REDIS_URL")
+
     @property
     def async_database_url(self: "SharedSettings") -> str:
         return self.database_url.replace(
@@ -36,6 +38,15 @@ class SharedSettings(BaseSettings):
     ) -> str:
         if not v.startswith("postgresql://"):
             raise ValueError("DATABASE_URL must start with postgresql://")
+        return v
+
+    @validator("redis_url")
+    def validate_redis_url(
+        cls: "SharedSettings",
+        v: str,
+    ) -> str:
+        if not v.startswith("redis://"):
+            raise ValueError("REDIS_URL must start with redis://")
         return v
 
 

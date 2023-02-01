@@ -41,9 +41,10 @@ async def save_or_update_user(
     return user
 
 
-async def allow_user_by_telegram_id(
+async def set_allowed_user_by_telegram_id(
     async_session: AsyncSession,
     telegram_id: int,
+    is_allowed: bool,
 ) -> UserModel:
     user = await get_user_by_telegram_id(
         async_session=async_session,
@@ -53,12 +54,12 @@ async def allow_user_by_telegram_id(
     if not user:
         user = UserModel(
             telegram_id=telegram_id,
-            allowed=True,
+            allowed=is_allowed,
         )
         async_session.add(user)
         return user
 
-    user.allowed = True
+    user.allowed = is_allowed
     return user
 
 
