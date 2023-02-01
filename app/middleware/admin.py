@@ -15,8 +15,6 @@ async def filter_non_admin(
     telegram_user: TelegramUser = data["telegram_user"]
 
     if telegram_user.id not in manager_settings.admin_user_ids:
-        return await message.answer(
-            "You are not allowed to manage this bot",
-        )
+        return await message.answer("You are not allowed")
 
     return await handler(message, data)
