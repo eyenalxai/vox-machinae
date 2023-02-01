@@ -12,7 +12,7 @@ from app.util.handler.allow_state import (
 )
 
 
-def build_admin_dialog() -> Dialog:
+def build_manager_dialog() -> Dialog:
     return Dialog(
         Window(
             Row(
