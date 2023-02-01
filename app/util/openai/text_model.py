@@ -3,10 +3,10 @@ from collections.abc import Callable
 
 from httpx import HTTPStatusError
 
-from app.app_settings import settings
 from app.config.http_client import http_client
 from app.schema.openai import OpenAIResponse
 from app.util.openai.openai_stuff import first_choice_text
+from app.util.settings.customer import customer_settings
 
 
 def openai_text_wrapper() -> Callable[[str], str]:
@@ -15,7 +15,7 @@ def openai_text_wrapper() -> Callable[[str], str]:
     headers = {
         "Content-Type": "application/json",
         "Authorization": "Bearer {openai_token}".format(
-            openai_token=settings.openai_token,
+            openai_token=customer_settings.openai_token,
         ),
     }
 

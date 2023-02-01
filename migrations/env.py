@@ -7,8 +7,8 @@ from sqlalchemy import engine_from_config, pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import AsyncEngine
 
-from app.app_settings import settings
 from app.model.models import Base
+from app.util.settings.shared import shared_settings
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -31,7 +31,7 @@ from app.model.models import UserModel  # type: ignore
 # my_important_option = config.get_main_option("my_important_option")
 # ... etc.
 
-config.set_main_option("sqlalchemy.url", settings.async_database_url)
+config.set_main_option("sqlalchemy.url", shared_settings.async_database_url)
 
 
 def run_migrations_offline() -> None:

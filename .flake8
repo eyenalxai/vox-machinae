@@ -6,6 +6,7 @@ ignore =    D100 Missing docstring in public module
             D104 Missing docstring in public package
             D106 Missing docstring in public nested class
             N805 first argument of a method should be named 'self'
+            N811 constant imported as non constant
             Q000 Double quotes found but single quotes preferred
             S104 Possible binding to all interfaces
             WPS110 Found wrong variable name

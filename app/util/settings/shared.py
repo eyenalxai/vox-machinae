@@ -3,12 +3,8 @@ from typing import Literal
 from pydantic import BaseSettings, Field, validator
 
 
-class Settings(BaseSettings):
+class SharedSettings(BaseSettings):
     telegram_token: str = Field(..., env="TELEGRAM_TOKEN")
-    openai_token: str = Field(..., env="OPENAI_TOKEN")
-
-    # Example: [1234567890, 1234567890, ...] # noqa: E800 Found commented out code
-    admin_user_ids: list[int] = Field(..., env="ADMIN_USER_IDS")
 
     poll_type: Literal["WEBHOOK", "POLLING"] = Field(..., env="POLL_TYPE")
     port: int = Field(..., env="PORT")
@@ -19,29 +15,39 @@ class Settings(BaseSettings):
     database_url: str = Field(..., env="DATABASE_URL")
     database_pool_size = 20
 
+    redis_url: str = Field(..., env="REDIS_URL")
+
     @property
-    def async_database_url(self: "Settings") -> str:
+    def async_database_url(self: "SharedSettings") -> str:
         return self.database_url.replace(
             "postgresql://",
             "postgresql+asyncpg://",
         )
 
     @property
-    def webhook_url(self: "Settings") -> str:
+    def webhook_url(self: "SharedSettings") -> str:
         return "https://{domain}{main_bot_path}".format(
             domain=self.domain,
             main_bot_path=self.main_bot_path,
         )
 
     @validator("database_url")
-    def domain_must_not_end_with_slash(
-        cls: "Settings",
+    def validate_database_url(
+        cls: "SharedSettings",
         v: str,
     ) -> str:
-
         if not v.startswith("postgresql://"):
             raise ValueError("DATABASE_URL must start with postgresql://")
         return v
 
+    @validator("redis_url")
+    def validate_redis_url(
+        cls: "SharedSettings",
+        v: str,
+    ) -> str:
+        if not v.startswith("redis://"):
+            raise ValueError("REDIS_URL must start with redis://")
+        return v
 
-settings = Settings()
+
+shared_settings = SharedSettings()
