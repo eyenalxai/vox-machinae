@@ -4,7 +4,7 @@ from typing import Any
 from aiogram.types import Message
 from aiogram.types import User as TelegramUser
 
-from app.app_settings import settings
+from app.util.settings.manager import manager_settings
 
 
 async def filter_non_admin(
@@ -14,7 +14,7 @@ async def filter_non_admin(
 ) -> Any:
     telegram_user: TelegramUser = data["telegram_user"]
 
-    if telegram_user.id not in settings.admin_user_ids:
+    if telegram_user.id not in manager_settings.admin_user_ids:
         return await message.answer(
             "You are not allowed to manage this bot",
         )

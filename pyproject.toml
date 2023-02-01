@@ -31,7 +31,8 @@ dev = [
 
 
 [tool.pdm.scripts]
-start = "python main.py"
+start_customer = "python customer_bot.py"
+start_admin = "python admin_bot.py"
 
 [tool.setuptools]
 py-modules = []
