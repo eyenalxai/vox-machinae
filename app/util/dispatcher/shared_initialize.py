@@ -4,6 +4,7 @@ from redis.asyncio import from_url as async_redis_from_url
 from sqlalchemy.ext.asyncio import create_async_engine
 
 from app.middleware.database_session import get_async_database_session
+from app.middleware.user import filter_non_user
 from app.util.lifecycle.lifecycle_functions import on_shutdown, on_startup
 from app.util.settings.shared import shared_settings
 
@@ -27,5 +28,6 @@ def initialize_shared_dispatcher() -> Dispatcher:
     dispatcher.shutdown.register(callback=on_shutdown)
 
     dispatcher.message.middleware(get_async_database_session)  # type: ignore
+    dispatcher.message.middleware(filter_non_user)  # type: ignore
 
     return dispatcher
