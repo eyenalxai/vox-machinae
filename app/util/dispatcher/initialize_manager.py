@@ -3,7 +3,7 @@ from aiogram import F as MagicFilter
 from aiogram.types import Message
 from aiogram_dialog import DialogManager, DialogRegistry, StartMode
 
-from app.dialog.admin import build_manager_dialog
+from app.dialog.manager import build_manager_dialog
 from app.state.manager import MainManagerSG
 from app.util.dispatcher.shared_initialize import initialize_shared_dispatcher
 

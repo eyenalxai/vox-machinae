@@ -15,6 +15,7 @@ from app.util.handler.allow_state import (
 def build_manager_dialog() -> Dialog:
     return Dialog(
         Window(
+            Const("Select action"),
             Row(
                 Button(
                     Const("Allow user"),
