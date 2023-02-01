@@ -6,7 +6,7 @@ from app.util.lifecycle.lifecycle_functions import on_shutdown, on_startup
 from app.util.settings.shared import shared_settings
 
 
-def shared_initialized() -> Dispatcher:
+def initialize_shared_dispatcher() -> Dispatcher:
     dispatcher = Dispatcher()
 
     dispatcher["async_engine"] = create_async_engine(
