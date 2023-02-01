@@ -32,7 +32,7 @@ dev = [
 
 [tool.pdm.scripts]
 start_customer = "python customer_bot.py"
-start_admin = "python admin_bot.py"
+start_manager = "python manager_bot.py"
 
 [tool.setuptools]
 py-modules = []
