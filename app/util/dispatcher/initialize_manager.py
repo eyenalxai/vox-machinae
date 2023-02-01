@@ -4,6 +4,7 @@ from aiogram.types import Message
 from aiogram_dialog import DialogManager, DialogRegistry, StartMode
 
 from app.dialog.manager import build_manager_dialog
+from app.middleware.admin import filter_non_admin
 from app.state.manager import MainManagerSG
 from app.util.dispatcher.shared_initialize import initialize_shared_dispatcher
 
@@ -25,4 +26,6 @@ def initialize_manager_dispatcher() -> Dispatcher:
     registry.register(manager_dialog)
 
     dispatcher.message.register(start_manager_dialog, MagicFilter.text == "/start")
+
+    dispatcher.message.middleware.register(filter_non_admin)  # type: ignore
     return dispatcher
