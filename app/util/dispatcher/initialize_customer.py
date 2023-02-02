@@ -3,6 +3,9 @@ from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram_dialog import DialogManager, DialogRegistry, StartMode
 
+from app.dialog.customer.image_from_text_model_prompt import (
+    build_image_from_text_model_prompt_dialog,
+)
 from app.dialog.customer.main_menu import build_customer_main_menu_dialog
 from app.dialog.customer.select_text_model_menu import (
     build_select_text_model_menu_dialog,
@@ -13,7 +16,8 @@ from app.middleware.user import update_user
 from app.state.customer import MainCustomerSG
 from app.util.dispatcher.error_handler import get_error_handler
 from app.util.dispatcher.shared_initialize import initialize_shared_dispatcher
-from app.util.openai.text_model import openai_text_wrapper
+from app.util.openai.image_from_text_model import openai_image_from_text_model_wrapper
+from app.util.openai.text_model import openai_text_model_wrapper
 from app.util.settings.customer import customer_settings
 
 
@@ -28,18 +32,21 @@ def register_dialogs(dispatcher: Dispatcher) -> DialogRegistry:
     main_customer_dialog = build_customer_main_menu_dialog()
     select_text_model_menu_dialog = build_select_text_model_menu_dialog()
     text_model_prompt_dialog = build_text_model_prompt_dialog()
+    image_from_text_model_prompt_dialog = build_image_from_text_model_prompt_dialog()
 
     registry = DialogRegistry(dispatcher)
     registry.register(main_customer_dialog)
     registry.register(select_text_model_menu_dialog)
     registry.register(text_model_prompt_dialog)
+    registry.register(image_from_text_model_prompt_dialog)
 
     return registry
 
 
 def initialize_customer_dispatcher() -> Dispatcher:
     dispatcher = initialize_shared_dispatcher()
-    dispatcher["text_prompt"] = openai_text_wrapper()
+    dispatcher["text_model_prompt"] = openai_text_model_wrapper()
+    dispatcher["image_from_text_model_prompt"] = openai_image_from_text_model_wrapper()
 
     dispatcher.message.register(
         start_customer_dialog,

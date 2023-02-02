@@ -14,3 +14,7 @@ class TextModelSG(StatesGroup):
     curie = State()
     babbage = State()
     ada = State()
+
+
+class ImageFromTextSG(StatesGroup):
+    image_model = State()

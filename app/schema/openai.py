@@ -9,8 +9,17 @@ class Usage(Immutable):
     total_tokens: int
 
 
-class OpenAIResponse(Immutable):
+class OpenAITextModelResponse(Immutable):
     id: str
     object: str
     choices: list[Choice]
     usage: Usage
+
+
+class ImageUrl(Immutable):
+    url: str
+
+
+class OpenAIImageFromTextModelResponse(Immutable):
+    created: int
+    data: list[ImageUrl]

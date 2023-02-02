@@ -9,6 +9,7 @@ ignore =    D100 Missing docstring in public module
             N811 constant imported as non constant
             Q000 Double quotes found but single quotes preferred
             S104 Possible binding to all interfaces
+            S311 Standard pseudo-random generators are not suitable for security/cryptographic purposes
             WPS110 Found wrong variable name
             WPS111 Found too short name: v < 2
             WPS201 Found module with too many imports: 13 > 12

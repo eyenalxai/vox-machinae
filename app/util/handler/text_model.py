@@ -24,12 +24,13 @@ def create_text_model_handler(
             await message.reply(text="Please provide a text prompt.")
             return
 
-        text_prompt: Callable[[str, TextModel], tuple[str, int]]
-        text_prompt = dialog_manager.middleware_data["text_prompt"]
-        response_text, token_used = text_prompt(message.text, text_model)
+        text_model_prompt: Callable[[str, TextModel], tuple[str, int]]
+        text_model_prompt = dialog_manager.middleware_data["text_model_prompt"]
+        response_text, token_used = text_model_prompt(message.text, text_model)
 
         async_session: AsyncSession = dialog_manager.middleware_data["async_session"]
         telegram_user: TelegramUser = dialog_manager.middleware_data["telegram_user"]
+
         await add_used_tokens_by_telegram_id(
             async_session=async_session,
             telegram_id=telegram_user.id,
