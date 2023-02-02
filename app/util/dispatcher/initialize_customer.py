@@ -31,7 +31,7 @@ def initialize_customer_dispatcher() -> Dispatcher:
 
     dispatcher.include_router(text_model_router)
 
-    text_model_router.message.register(~Command(customer_settings.options_command))
+    text_model_router.message.register(~Command(customer_settings.settings_command))
     text_model_router.message.register(
         TextModelSG.davinci,
         TextModelSG.curie,
@@ -49,7 +49,7 @@ def initialize_customer_dispatcher() -> Dispatcher:
 
     dispatcher.message.register(
         start_customer_dialog,
-        Command(customer_settings.options_command),
+        Command(customer_settings.settings_command),
     )
 
     error_handler = get_error_handler(reset_state=MainCustomerSG.main_menu)

@@ -3,7 +3,7 @@ from pydantic import BaseSettings, Field
 
 class CustomerSettings(BaseSettings):
     openai_token: str = Field(..., env="OPENAI_TOKEN")
-    options_command = "options"
+    settings_command = "settings"
 
 
 customer_settings = CustomerSettings()
