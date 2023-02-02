@@ -7,11 +7,10 @@ from app.dialog.customer.main_menu import build_customer_main_menu_dialog
 from app.dialog.customer.select_text_model_menu import (
     build_select_text_model_menu_dialog,
 )
+from app.dialog.customer.text_model_prompt import build_text_model_prompt_dialog
 from app.middleware.access import filter_non_allowed
-from app.middleware.text import filter_not_text
 from app.middleware.user import update_user
-from app.route.customer.text_model import text_model_router
-from app.state.customer import MainCustomerSG, TextModelSG
+from app.state.customer import MainCustomerSG
 from app.util.dispatcher.error_handler import get_error_handler
 from app.util.dispatcher.shared_initialize import initialize_shared_dispatcher
 from app.util.openai.text_model import openai_text_wrapper
@@ -25,32 +24,29 @@ async def start_customer_dialog(
     await dialog_manager.start(MainCustomerSG.main_menu, mode=StartMode.RESET_STACK)
 
 
-def initialize_customer_dispatcher() -> Dispatcher:
-    dispatcher = initialize_shared_dispatcher()
-    dispatcher["text_prompt"] = openai_text_wrapper()
-
-    dispatcher.include_router(text_model_router)
-
-    text_model_router.message.register(~Command(customer_settings.settings_command))
-    text_model_router.message.register(
-        TextModelSG.davinci,
-        TextModelSG.curie,
-        TextModelSG.babbage,
-        TextModelSG.ada,
-    )
-    text_model_router.message.middleware(filter_not_text)  # type: ignore
-
+def register_dialogs(dispatcher: Dispatcher) -> DialogRegistry:
     main_customer_dialog = build_customer_main_menu_dialog()
     select_text_model_menu_dialog = build_select_text_model_menu_dialog()
+    text_model_prompt_dialog = build_text_model_prompt_dialog()
 
     registry = DialogRegistry(dispatcher)
     registry.register(main_customer_dialog)
     registry.register(select_text_model_menu_dialog)
+    registry.register(text_model_prompt_dialog)
+
+    return registry
+
+
+def initialize_customer_dispatcher() -> Dispatcher:
+    dispatcher = initialize_shared_dispatcher()
+    dispatcher["text_prompt"] = openai_text_wrapper()
 
     dispatcher.message.register(
         start_customer_dialog,
         Command(customer_settings.settings_command),
     )
+
+    register_dialogs(dispatcher=dispatcher)
 
     error_handler = get_error_handler(reset_state=MainCustomerSG.main_menu)
     dispatcher.errors.register(error_handler)
