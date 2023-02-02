@@ -1,6 +1,6 @@
 from aiogram import Dispatcher
-from aiogram import F as MagicFilter
 from aiogram.dispatcher.event.bases import UNHANDLED
+from aiogram.filters import Command
 from aiogram.types import Message
 from aiogram.types.error_event import ErrorEvent
 from aiogram_dialog import DialogManager, DialogRegistry, StartMode
@@ -52,7 +52,7 @@ def initialize_manager_dispatcher() -> Dispatcher:
     registry.register(main_dialog)
     registry.register(access_dialog)
 
-    dispatcher.message.register(start_manager_dialog, MagicFilter.text == "/manage")
+    dispatcher.message.register(start_manager_dialog, Command("manage"))
     dispatcher.errors.register(error_handler)
 
     dispatcher.message.middleware.register(filter_non_admin)  # type: ignore
