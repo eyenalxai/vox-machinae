@@ -75,3 +75,19 @@ async def is_allowed_by_telegram_id(
     query_result = await async_session.execute(query)
 
     return query_result.scalars().first() is not None
+
+
+async def add_used_tokens_by_telegram_id(
+    async_session: AsyncSession,
+    telegram_id: int,
+    tokens_used: int,
+) -> None:
+    user = await get_user_by_telegram_id(
+        async_session=async_session,
+        telegram_id=telegram_id,
+    )
+
+    if not user:
+        return
+
+    user.tokens_used += tokens_used

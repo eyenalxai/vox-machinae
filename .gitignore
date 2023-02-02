@@ -8,3 +8,4 @@ __pycache__
 __pypackages__
 /vox_machinae.egg-info/
 /.pytest_cache/
+/.env-prod

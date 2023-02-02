@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import BIGINT, TIMESTAMP, Boolean, String, func
+from sqlalchemy import BIGINT, TIMESTAMP, Boolean, Integer, String, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 
 
@@ -27,3 +27,5 @@ class UserModel(Base):
     full_name: Mapped[str | None] = mapped_column(
         String(128),  # noqa: WPS432 Found magic number
     )
+
+    tokens_used: Mapped[int] = mapped_column(Integer(), default=0)

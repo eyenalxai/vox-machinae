@@ -3,7 +3,6 @@ from aiogram.fsm.state import State, StatesGroup
 
 class MainManagerSG(StatesGroup):
     main_menu = State()
-    access = State()
 
 
 class AccessManagerSG(StatesGroup):
