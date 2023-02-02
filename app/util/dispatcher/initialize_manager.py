@@ -25,7 +25,7 @@ def initialize_manager_dispatcher() -> Dispatcher:
     manager_dialog = build_manager_dialog()
     registry.register(manager_dialog)
 
-    dispatcher.message.register(start_manager_dialog, MagicFilter.text == "/start")
+    dispatcher.message.register(start_manager_dialog, MagicFilter.text == "/manage")
 
     dispatcher.message.middleware.register(filter_non_admin)  # type: ignore
     return dispatcher
