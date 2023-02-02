@@ -1,0 +1,15 @@
+- [ ] Free access for any user
+- [ ] Describe what the bot can do when it starts
+- [x] Store users and their profile information
+- [x] Store the number of messages/tokens spent by the user
+- [ ] Set a default limit for both fields
+- [ ] Send a message when the limit is reached
+- [ ] Create a bot manager to see:
+  - [ ] Number of users (total/available for bot messages/DAU/MAU)
+  - [ ] Usernames or other data to access dialogs (phone number?)
+- [ ] Ability to send messages to all bot users (e.g. through bot manager)
+- [ ] Edit limits for each user or all users
+- [ ] Store chat messages for context
+- [ ] Add monetization
+- [ ] Teach the bot to perform admin actions in chats
+- [ ] Teach the bot to make Telegram API requests for these actions
