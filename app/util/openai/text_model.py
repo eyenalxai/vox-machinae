@@ -1,5 +1,6 @@
 import logging
 from collections.abc import Callable
+from typing import Literal
 
 from httpx import HTTPStatusError
 
@@ -8,8 +9,15 @@ from app.schema.openai import OpenAIResponse
 from app.util.openai.openai_stuff import first_choice_text
 from app.util.settings.customer import customer_settings
 
+TextModel = Literal[
+    "text-davinci-003",
+    "text-curie-001",
+    "text-babbage-001",
+    "text-ada-001",
+]
 
-def openai_text_wrapper() -> Callable[[str], tuple[str, int]]:
+
+def openai_text_wrapper() -> Callable[[str, TextModel], tuple[str, int]]:
     url = "https://api.openai.com/v1/completions"
 
     headers = {
@@ -20,18 +28,18 @@ def openai_text_wrapper() -> Callable[[str], tuple[str, int]]:
     }
 
     configuration = {
-        "model": "text-davinci-003",
         "temperature": 0,
         "max_tokens": 512,
     }
 
-    def text_prompt(message: str) -> tuple[str, int]:
+    def text_prompt(prompt: str, text_model: TextModel) -> tuple[str, int]:
         response = http_client.post(
             url=url,
             headers=headers,
             json={
                 **configuration,
-                "prompt": message,
+                "model": text_model,
+                "prompt": prompt,
             },
         )
 

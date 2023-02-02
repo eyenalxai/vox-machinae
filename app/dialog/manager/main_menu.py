@@ -5,7 +5,7 @@ from aiogram_dialog.widgets.text import Const
 from app.state.manager import AccessManagerSG, MainManagerSG
 
 
-def build_main_menu_dialog() -> Dialog:
+def build_manager_main_menu_dialog() -> Dialog:
     return Dialog(
         Window(
             Const("Select Action"),

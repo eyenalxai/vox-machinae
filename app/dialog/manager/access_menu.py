@@ -9,8 +9,8 @@ from app.util.handler.allow_state import user_allow_setter
 
 def build_access_menu_dialog() -> Dialog:
     switch_to_access_menu = SwitchTo(
-        Const("Back to access menu"),
-        id="back_to_menu",
+        Const("Back to Access Menu"),
+        id="back_to_access_menu",
         state=AccessManagerSG.access_menu,
     )
     return Dialog(
@@ -30,7 +30,7 @@ def build_access_menu_dialog() -> Dialog:
             ),
             Start(
                 Const("Back to Main Menu"),
-                id="back_to_main_menu",
+                id="back_to_manager_main_menu",
                 state=MainManagerSG.main_menu,
             ),
             state=AccessManagerSG.access_menu,
