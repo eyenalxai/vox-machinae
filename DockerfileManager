@@ -9,7 +9,7 @@ WORKDIR /code
 
 COPY ./pyproject.toml /code/pyproject.toml
 COPY ./pdm.lock /code/pdm.lock
-RUN pdm install --group manager
+RUN pdm install
 
 COPY ./app /code/app
 COPY manager_bot.py /code/manager_bot.py
