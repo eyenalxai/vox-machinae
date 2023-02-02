@@ -22,7 +22,12 @@ def send_openai_request(
     try:
         response.raise_for_status()
     except HTTPStatusError as http_status_error:
-        logger.error("OpenAI API error: %s", http_status_error)
+        logger.error(
+            "OpenAI API error: %s\n%s\n",
+            http_status_error,
+            http_status_error.response,
+            http_status_error.response.text,
+        )
         raise
     except Exception as exception:
         logger.error(
