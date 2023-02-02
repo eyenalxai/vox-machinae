@@ -1,13 +1,11 @@
 from collections.abc import Awaitable, Callable
 
-from aiogram.types import CallbackQuery, Message
+from aiogram.types import Message
 from aiogram_dialog import DialogManager
 from aiogram_dialog.widgets.input import MessageInput
-from aiogram_dialog.widgets.kbd import Button
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.query.user import set_allowed_user_by_telegram_id
-from app.state.manager import MainManagerSG
 
 
 def user_allow_setter(
@@ -48,27 +46,3 @@ def user_allow_setter(
         )
 
     return allow_state_handler
-
-
-async def switch_to_allow_handler(
-    _callback: CallbackQuery,
-    _button: Button,
-    manager: DialogManager,
-) -> None:
-    await manager.switch_to(MainManagerSG.allow_user)
-
-
-async def switch_to_disallow_handler(
-    _callback: CallbackQuery,
-    _button: Button,
-    manager: DialogManager,
-) -> None:
-    await manager.switch_to(MainManagerSG.disallow_user)
-
-
-async def back_to_select_allow_action(
-    _callback: CallbackQuery,
-    _button: Button,
-    manager: DialogManager,
-) -> None:
-    await manager.switch_to(MainManagerSG.menu)

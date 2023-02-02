@@ -63,6 +63,8 @@ line-length = 88
 
 [tool.vulture]
 exclude = [".git", ".idea", ".mypy_cache", ".venv", ".vscode", "migrations", "alembic"]
+ignore_names = ["_", "Config", "frozen", "created_at", "cls"]
+ignore_decorators = ["@start_router.*", "@text_router.*", "@validator"]
 
 
 
