@@ -27,7 +27,7 @@ def initialize_shared_dispatcher() -> Dispatcher:
     dispatcher.startup.register(callback=on_startup)
     dispatcher.shutdown.register(callback=on_shutdown)
 
-    dispatcher.message.middleware(get_async_database_session)  # type: ignore
-    dispatcher.message.middleware(filter_non_user)  # type: ignore
+    dispatcher.message.middleware(get_async_database_session)
+    dispatcher.message.middleware(filter_non_user)
 
     return dispatcher

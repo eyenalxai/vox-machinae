@@ -19,9 +19,8 @@ async def start_manager_dialog(
     await dialog_manager.start(MainManagerSG.main_menu, mode=StartMode.RESET_STACK)
 
 
-def initialize_manager_dispatcher() -> Dispatcher:
-    dispatcher = initialize_shared_dispatcher()
-    registry = DialogRegistry(dispatcher)
+def register_manager_dialogs(dispatcher: Dispatcher) -> DialogRegistry:
+    registry = DialogRegistry(dp=dispatcher)
 
     main_manager_dialog = build_manager_main_menu_dialog()
     access_dialog = build_access_menu_dialog()
@@ -29,13 +28,21 @@ def initialize_manager_dispatcher() -> Dispatcher:
     registry.register(main_manager_dialog)
     registry.register(access_dialog)
 
+    return registry
+
+
+def initialize_manager_dispatcher() -> Dispatcher:
+    dispatcher = initialize_shared_dispatcher()
+
     dispatcher.message.register(
         start_manager_dialog,
         Command(manager_settings.manager_command),
     )
 
+    register_manager_dialogs(dispatcher=dispatcher)
+
     error_handler = get_error_handler(reset_state=MainManagerSG.main_menu)
     dispatcher.errors.register(error_handler)
 
-    dispatcher.message.middleware.register(filter_non_admin)  # type: ignore
+    dispatcher.message.middleware.register(middleware=filter_non_admin)
     return dispatcher

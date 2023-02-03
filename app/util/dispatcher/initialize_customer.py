@@ -28,17 +28,17 @@ async def start_customer_dialog(
     await dialog_manager.start(MainCustomerSG.main_menu, mode=StartMode.RESET_STACK)
 
 
-def register_dialogs(dispatcher: Dispatcher) -> DialogRegistry:
+def register_customer_dialogs(dispatcher: Dispatcher) -> DialogRegistry:
     main_customer_dialog = build_customer_main_menu_dialog()
     select_text_model_menu_dialog = build_select_text_model_menu_dialog()
     text_model_prompt_dialog = build_text_model_prompt_dialog()
     image_from_text_model_prompt_dialog = build_image_from_text_model_prompt_dialog()
 
-    registry = DialogRegistry(dispatcher)
-    registry.register(main_customer_dialog)
-    registry.register(select_text_model_menu_dialog)
-    registry.register(text_model_prompt_dialog)
-    registry.register(image_from_text_model_prompt_dialog)
+    registry = DialogRegistry(dp=dispatcher)
+    registry.register(dialog=main_customer_dialog)
+    registry.register(dialog=select_text_model_menu_dialog)
+    registry.register(dialog=text_model_prompt_dialog)
+    registry.register(dialog=image_from_text_model_prompt_dialog)
 
     return registry
 
@@ -53,12 +53,12 @@ def initialize_customer_dispatcher() -> Dispatcher:
         Command(customer_settings.settings_command),
     )
 
-    register_dialogs(dispatcher=dispatcher)
+    register_customer_dialogs(dispatcher=dispatcher)
 
     error_handler = get_error_handler(reset_state=MainCustomerSG.main_menu)
     dispatcher.errors.register(error_handler)
 
-    dispatcher.message.middleware(update_user)  # type: ignore
-    dispatcher.message.middleware(filter_non_allowed)  # type: ignore
+    dispatcher.message.middleware(update_user)
+    dispatcher.message.middleware(filter_non_allowed)
 
     return dispatcher
